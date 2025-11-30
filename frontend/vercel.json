@@ -4,7 +4,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://employee-attendance-bm7f.onrender.com/api/$1"
+      "destination": "https://employee-attendance-1-pasy.onrender.com/api/$1"
     },
     {
       "source": "/(.*)",

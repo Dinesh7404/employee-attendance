@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { useAuthStore } from '../store/authStore';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Prefer env; fallback to relative '/api' in production (Vercel rewrite),
+// and to localhost in development.
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD ? '/api' : 'http://localhost:5000/api');
 
 const apiClient = axios.create({
   baseURL: API_URL,
