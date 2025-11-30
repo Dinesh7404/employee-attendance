@@ -2,9 +2,10 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE
-  });
+  // Accepts number (seconds) or string like '7d'. Default to '7d'.
+  const rawExpire = process.env.JWT_EXPIRE || '7d';
+  const expiresIn = /^[0-9]+$/.test(rawExpire) ? Number(rawExpire) : rawExpire;
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn });
 };
 
 export const register = async (req, res) => {
