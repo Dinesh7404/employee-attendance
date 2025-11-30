@@ -9,7 +9,6 @@ const app = express();
 // Middleware
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'https://employee-shiftlog.vercel.app',
-  'https://employee-attendance-ecru.vercel.app', // legacy previous deploy (keep temporarily)
   'http://localhost:5173'
 ];
 
