@@ -199,18 +199,7 @@ export default function Login() {
           </p>
         </div>
 
-        {/* Demo Credentials */}
-        <div className="mt-6 card bg-gray-50">
-          <p className="text-xs font-semibold text-gray-700 mb-2">Demo Credentials:</p>
-          {selectedRole === 'manager' ? (
-            <p className="text-xs text-gray-600">manager@company.com / password123</p>
-          ) : (
-            <>
-              <p className="text-xs text-gray-600">sudhe@company.com / password123</p>
-              <p className="text-xs text-gray-600">hema@company.com / password123</p>
-            </>
-          )}
-        </div>
+        
       </div>
     </div>
   );
