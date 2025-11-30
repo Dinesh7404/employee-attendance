@@ -1,11 +1,28 @@
 import axios from 'axios';
 import { useAuthStore } from '../store/authStore';
 
-// Prefer env; fallback to relative '/api' in production (Vercel rewrite),
-// and to localhost in development.
-const API_URL =
-  import.meta.env.VITE_API_URL ||
-  (import.meta.env.PROD ? '/api' : 'http://localhost:5000/api');
+// Normalize API base URL:
+// - If env provided, ensure it ends with '/api' (handles cases where only host is set)
+// - Otherwise fallback to relative '/api' in production (Vercel rewrite)
+// - And to localhost in development.
+const normalizeApiUrl = (url) => {
+  if (!url) return url;
+  try {
+    const u = new URL(url);
+    if (!u.pathname.startsWith('/api')) {
+      // append '/api' preserving existing path if any
+      u.pathname = (u.pathname.endsWith('/') ? u.pathname.slice(0, -1) : u.pathname) + '/api';
+      return u.toString();
+    }
+    return url;
+  } catch {
+    // Not an absolute URL; return as-is
+    return url;
+  }
+};
+
+const rawEnvUrl = import.meta.env.VITE_API_URL;
+const API_URL = normalizeApiUrl(rawEnvUrl) || (import.meta.env.PROD ? '/api' : 'http://localhost:5000/api');
 
 const apiClient = axios.create({
   baseURL: API_URL,
